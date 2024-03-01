@@ -29,6 +29,9 @@
                             alert("Successfully Deleted");
                             window.location.href = "/books/index";
 
+                        },
+                        error: function (ex) {
+                            alert("Something went wrong");
                         }
                     });
                 }

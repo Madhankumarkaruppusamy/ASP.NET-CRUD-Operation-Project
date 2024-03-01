@@ -104,7 +104,7 @@ namespace TN_BookStore.Controllers
             {
                 _stall.DeleteBook(id);
                 var result = _stall.GetAllBooks();
-                return View("View", result);
+                return View("View",result);
 
             }
             catch

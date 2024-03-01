@@ -63,10 +63,10 @@
 
             $("#save").click(function () {
 
-
-                if (validate()) {
+                var condition = validate();
+                if (condition == true) {
                   
-                    var Bookid = document.getElementById("BookId").value;
+                    var bookid = document.getElementById("BookId").value;
                     var name = document.getElementById("Name").value;
                     var author = document.getElementById("Author").value;
                     var genre = document.getElementById("Genre").value;
@@ -74,7 +74,7 @@
                     var description = document.getElementById("Description").value;
                     
                     var AddData = {
-                        "BookId": Bookid,
+                        "BookId": bookid,
                         "Name": name,
                         "Author": author,
                         "Genre": genre,
@@ -87,7 +87,7 @@
                             type: "POST",
                             url: "/Books/Create",
                             data: AddData,
-                            success: function (daa) {
+                            success: function (data) {
 
                                 alert("Successfully Saved");
                                 window.location.href = "/books/index";
@@ -109,14 +109,14 @@
 
             var name = document.getElementById("Name").value;
 
-            var isvalid = true;
+            condition = true;
 
             var spanname = document.getElementById("txtname");
             if (name == "" || name.length == 0) {
                 spanname.innerText = "Please Enter Book Name";
                 spanname.style.display = "block";
 
-                isvalid = false;
+                condition = false;
             }
             else {
                 spanname.style.display = "none";
@@ -124,29 +124,27 @@
 
             var author = document.getElementById("Author").value;
 
-            var isvalid = true;
 
             var spanauthor = document.getElementById("txtauthor");
             if (author == "" || author.length == 0) {
                 spanauthor.innerText = "Please Enter Author Name";
                 spanauthor.style.display = "block";
 
-                isvalid = false;
+                condition = false;
             }
             else {
-                spanname.style.display = "none";
+                spanauthor.style.display = "none";
             }
 
             var genre = document.getElementById("Genre").value;
 
-            var isvalid = true;
 
             var spangenre = document.getElementById("txtgenre");
             if (genre == "" || genre.length == 0) {
                 spangenre.innerText = "Please Enter Book Genre";
                 spangenre.style.display = "block";
 
-                isvalid = false;
+                condition = false;
             }
             else {
                 spangenre.style.display = "none";
@@ -154,14 +152,13 @@
 
             var publisher = document.getElementById("Publisher").value;
 
-            var isvalid = true;
 
             var spanpublisher = document.getElementById("txtpublisher");
             if (publisher == "" || publisher.length == 0) {
                 spanpublisher.innerText = "Please Enter Book Publisher";
                 spanpublisher.style.display = "block";
 
-                isvalid = false;
+                condition = false;
             }
             else {
                 spanpublisher.style.display = "none";
@@ -169,14 +166,13 @@
 
             var description = document.getElementById("Description").value;
 
-            var isvalid = true;
 
             var spandescription = document.getElementById("txtdescription");
             if (description == "" || description.length == 0) {
                 spandescription.innerText = "Please Enter Book Description ";
                 spandescription.style.display = "block";
 
-                isvalid = false;
+                condition = false;
             }
             else {
                 spandescription.style.display = "none";
@@ -184,7 +180,7 @@
 
 
 
-            return isvalid;
+            return condition;
         }
     </script>
 }

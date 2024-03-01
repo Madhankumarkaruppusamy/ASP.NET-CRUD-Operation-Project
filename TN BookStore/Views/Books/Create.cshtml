@@ -1,0 +1,190 @@
+﻿@model BookStoreDataAccessLayer.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    var New = "Create";
+
+    if (Model.BookId > 0)
+    {
+        New = "Update";
+    }
+}
+
+<h1>@New</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="BookId" id="BookId" type="hidden" class="form-control" />
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name"placeholder="Enter Book Name"class="form-control" />
+                <span asp-validation-for="Name"id="txtname"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author"placeholder="Enter Author Name"class="form-control" />
+                <span asp-validation-for="Author" id="txtauthor"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <input asp-for="Genre"placeholder="Enter Book Genre"class="form-control" />
+                <span asp-validation-for="Genre" id="txtgenre"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publisher" class="control-label"></label>
+                <input asp-for="Publisher"placeholder="Enter Publisher Name" class="form-control" />
+                <span asp-validation-for="Publisher" id="txtpublisher"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" placeholder="Enter Description" class="form-control" />
+                <span asp-validation-for="Description" id="txtdescription"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="@New" id="save" class="btn btn-primary" />
+            </div>
+       
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+ @section Scripts 
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#save").click(function () {
+
+
+                if (validate()) {
+                  
+                    var Bookid = document.getElementById("BookId").value;
+                    var name = document.getElementById("Name").value;
+                    var author = document.getElementById("Author").value;
+                    var genre = document.getElementById("Genre").value;
+                    var publisher = document.getElementById("Publisher").value;
+                    var description = document.getElementById("Description").value;
+                    
+                    var AddData = {
+                        "BookId": Bookid,
+                        "Name": name,
+                        "Author": author,
+                        "Genre": genre,
+                        "Publisher": publisher,
+                        "Description": description
+                    };
+
+
+                    $.ajax({
+                            type: "POST",
+                            url: "/Books/Create",
+                            data: AddData,
+                            success: function (daa) {
+
+                                alert("Successfully Saved");
+                                window.location.href = "/books/index";
+
+                            },
+                            error: function (ex) {
+                                alert("Something went wrong");
+                            }
+                        });
+
+                }
+            });
+           
+
+        });
+
+        function validate() {
+            
+
+            var name = document.getElementById("Name").value;
+
+            var isvalid = true;
+
+            var spanname = document.getElementById("txtname");
+            if (name == "" || name.length == 0) {
+                spanname.innerText = "Please Enter Book Name";
+                spanname.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanname.style.display = "none";
+            }
+
+            var author = document.getElementById("Author").value;
+
+            var isvalid = true;
+
+            var spanauthor = document.getElementById("txtauthor");
+            if (author == "" || author.length == 0) {
+                spanauthor.innerText = "Please Enter Author Name";
+                spanauthor.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanname.style.display = "none";
+            }
+
+            var genre = document.getElementById("Genre").value;
+
+            var isvalid = true;
+
+            var spangenre = document.getElementById("txtgenre");
+            if (genre == "" || genre.length == 0) {
+                spangenre.innerText = "Please Enter Book Genre";
+                spangenre.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spangenre.style.display = "none";
+            }
+
+            var publisher = document.getElementById("Publisher").value;
+
+            var isvalid = true;
+
+            var spanpublisher = document.getElementById("txtpublisher");
+            if (publisher == "" || publisher.length == 0) {
+                spanpublisher.innerText = "Please Enter Book Publisher";
+                spanpublisher.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spanpublisher.style.display = "none";
+            }
+
+            var description = document.getElementById("Description").value;
+
+            var isvalid = true;
+
+            var spandescription = document.getElementById("txtdescription");
+            if (description == "" || description.length == 0) {
+                spandescription.innerText = "Please Enter Book Description ";
+                spandescription.style.display = "block";
+
+                isvalid = false;
+            }
+            else {
+                spandescription.style.display = "none";
+            }
+
+
+
+            return isvalid;
+        }
+    </script>
+}
